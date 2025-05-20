@@ -8,7 +8,7 @@ const createJestConfig = nextJest({
 });
 
 const jestConfig = {
-  moduleDirectories: ["node_modules", "<rootDir>"], //@ts-ignore
+  moduleDirectories: ["node_modules", "<rootDir>"],
   testTimeout: 60000,
 };
 
