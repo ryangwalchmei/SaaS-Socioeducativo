@@ -1,4 +1,8 @@
 import nextJest from "next/jest";
+import dotenv from "dotenv";
+
+dotenv.config({ path: ".env.development" });
+
 const createJestConfig = nextJest({
   dir: ".",
 });
