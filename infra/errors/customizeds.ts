@@ -1,8 +1,17 @@
+type ErrorProps = {
+  cause?: Error;
+  message?: string;
+  action?: string;
+  statusCode?: number;
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  allowedMethods?: ErrorProps["method"][];
+};
+
 export class InternalServerError extends Error {
   action: string;
   statusCode: number;
 
-  constructor({ cause, statusCode }: { cause: string; statusCode: number }) {
+  constructor({ cause, statusCode }: ErrorProps) {
     super("Um erro interno não esperado aconteceu.", {
       cause,
     });
@@ -26,7 +35,7 @@ export class ServiceError extends Error {
   statusCode: number;
   action: string;
 
-  constructor({ cause, message }: { cause: Error; message: string }) {
+  constructor({ cause, message }: ErrorProps) {
     super(message || "Serviço indisponível no momento.", {
       cause,
     });
