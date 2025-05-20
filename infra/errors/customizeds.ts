@@ -7,6 +7,23 @@ type ErrorProps = {
   allowedMethods?: ErrorProps["method"][];
 };
 
+export class UnauthorizedError extends Error {
+  statusCode: number;
+  constructor(message = "Acesso não autorizado", cause: Error) {
+    super(message, { cause });
+    this.name = "UnauthorizedError";
+    this.statusCode = 401;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      status_code: this.statusCode,
+    };
+  }
+}
+
 export class ForbiddenError extends Error {
   statusCode: number;
   constructor(
