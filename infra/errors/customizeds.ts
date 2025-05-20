@@ -7,6 +7,26 @@ type ErrorProps = {
   allowedMethods?: ErrorProps["method"][];
 };
 
+export class ForbiddenError extends Error {
+  statusCode: number;
+  constructor(
+    message = "Você não tem permissão para acessar este recurso",
+    cause: Error,
+  ) {
+    super(message, { cause });
+    this.name = "ForbiddenError";
+    this.statusCode = 403;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      status_code: this.statusCode,
+    };
+  }
+}
+
 export class NotFoundError extends Error {
   action: string;
   statusCode: number;
