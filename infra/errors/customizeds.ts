@@ -1,4 +1,4 @@
-type ErrorProps = {
+export type ErrorProps = {
   cause?: Error;
   message?: string;
   action?: string;
