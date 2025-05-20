@@ -7,6 +7,28 @@ type ErrorProps = {
   allowedMethods?: ErrorProps["method"][];
 };
 
+export class ValidationError extends Error {
+  action: string;
+  statusCode: number;
+  constructor({ cause, message, action }: ErrorProps) {
+    super(message || "Um erro de validação ocorreu.", {
+      cause,
+    });
+    this.name = "ValidationError";
+    this.action = action || "Ajuste os dados enviados e tente novamente.";
+    this.statusCode = 400;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      action: this.action,
+      status_code: this.statusCode,
+    };
+  }
+}
+
 export class UnauthorizedError extends Error {
   statusCode: number;
   constructor(message = "Acesso não autorizado", cause: Error) {
