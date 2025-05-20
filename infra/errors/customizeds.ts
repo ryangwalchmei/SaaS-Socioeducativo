@@ -7,6 +7,23 @@ type ErrorProps = {
   allowedMethods?: ErrorProps["method"][];
 };
 
+export class BadRequestError extends Error {
+  statusCode: number;
+  constructor(cause: Error, message: string) {
+    super(message, { cause });
+    this.name = "BadRequestError";
+    this.statusCode = 400;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      status_code: this.statusCode,
+    };
+  }
+}
+
 export class ValidationError extends Error {
   action: string;
   statusCode: number;
