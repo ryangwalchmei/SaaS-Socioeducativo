@@ -7,6 +7,26 @@ type ErrorProps = {
   allowedMethods?: ErrorProps["method"][];
 };
 
+export class ConflictError extends Error {
+  statusCode: number;
+  constructor(
+    message = "Conflito com o estado atual do recurso",
+    cause: Error,
+  ) {
+    super(message, { cause });
+    this.name = "ConflictError";
+    this.statusCode = 409;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      status_code: this.statusCode,
+    };
+  }
+}
+
 export class InternalServerError extends Error {
   action: string;
   statusCode: number;
