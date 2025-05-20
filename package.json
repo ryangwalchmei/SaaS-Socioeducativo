@@ -10,7 +10,8 @@
     "lint:prettier:check": "prettier --check .",
     "lint:prettier:fix": "prettier --write .",
     "lint:eslint:check": "next lint --dir .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "commit": "cz"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,8 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^22.15.19",
     "@types/react": "^19.1.4",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "9.27.0",
     "eslint-config-next": "15.3.2",
     "eslint-config-prettier": "^10.1.5",
@@ -47,5 +50,10 @@
     "ts-jest": "^29.3.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
