@@ -1,11 +1,11 @@
-import nextJest from 'next/jest'
+import nextJest from "next/jest";
 const createJestConfig = nextJest({
-  dir: '.',
-})
+  dir: ".",
+});
 
 const jestConfig = {
   moduleDirectories: ["node_modules", "<rootDir>"], //@ts-ignore
   testTimeout: 60000,
-}
+};
 
-export default createJestConfig(jestConfig)
+export default createJestConfig(jestConfig);
