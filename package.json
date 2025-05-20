@@ -18,7 +18,6 @@
     "prepare": "husky",
     "commit": "cz"
   },
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ryangwalchmei/SaaS-Socioeducativo.git"
