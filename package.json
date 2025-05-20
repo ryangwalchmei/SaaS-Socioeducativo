@@ -22,6 +22,8 @@
   "homepage": "https://github.com/ryangwalchmei/SaaS-Socioeducativo#readme",
   "description": "",
   "dependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "dotenv": "^16.5.0",
     "next": "^15.3.2",
     "react": "^19.1.0",
