@@ -7,6 +7,36 @@ type ErrorProps = {
   allowedMethods?: ErrorProps["method"][];
 };
 
+export class MethodNotAllowedError extends Error {
+  action: string;
+  statusCode: number;
+  method: ErrorProps["method"];
+  allowedMethods: ErrorProps["allowedMethods"];
+
+  constructor({ cause, method, allowedMethods = [] }: ErrorProps) {
+    super(`O método HTTP ${method} não é permitido para este endpoint.`, {
+      cause,
+    });
+
+    this.name = "MethodNotAllowedError";
+    this.action = `Use um dos métodos permitidos: ${allowedMethods.join(", ")}`;
+    this.statusCode = 405;
+    this.method = method;
+    this.allowedMethods = allowedMethods;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      action: this.action,
+      status_code: this.statusCode,
+      method: this.method,
+      allowed_methods: this.allowedMethods,
+    };
+  }
+}
+
 export class ConflictError extends Error {
   statusCode: number;
   constructor(
