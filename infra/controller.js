@@ -1,14 +1,13 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import {
-  BadRequestError,
-  ConflictError,
-  ForbiddenError,
-  InternalServerError,
   MethodNotAllowedError,
-  NotFoundError,
+  InternalServerError,
+  BadRequestError,
   UnauthorizedError,
+  NotFoundError,
+  ForbiddenError,
+  ConflictError,
   ValidationError,
-} from "./errors/customizeds";
+} from "infra/errors/customizeds";
 
 const simpleHandledErrors = [
   BadRequestError,
@@ -19,15 +18,7 @@ const simpleHandledErrors = [
   ValidationError,
 ];
 
-type ErrornInErrorHandler = Error & {
-  statusCode: number;
-};
-
-function onErrorHandler(
-  error: ErrornInErrorHandler,
-  request: NextApiRequest,
-  response: NextApiResponse,
-) {
+function onErrorHandler(error, request, response) {
   if (error instanceof MethodNotAllowedError) {
     response.setHeader("Allow", error.allowedMethods);
     return response.status(error.statusCode).json(error.toJSON());
@@ -47,8 +38,8 @@ function onErrorHandler(
   return response.status(internalError.statusCode).json(internalError.toJSON());
 }
 
-function onNoMatchHandler(request: NextApiRequest, response: NextApiResponse) {
-  const publicErrorObject = new MethodNotAllowedError({});
+function onNoMatchHandler(request, response) {
+  const publicErrorObject = new MethodNotAllowedError();
   response.status(publicErrorObject.statusCode).json(publicErrorObject);
 }
 
