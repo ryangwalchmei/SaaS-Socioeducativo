@@ -2,7 +2,7 @@ import { Client } from "pg";
 import { ServiceError } from "./errors/customizeds";
 
 async function query(queryObjects) {
-  let client: Client;
+  let client;
 
   try {
     client = await getNewClient();
@@ -23,7 +23,7 @@ async function query(queryObjects) {
 async function getNewClient() {
   const client = new Client({
     host: process.env.POSTGRES_HOST,
-    port: Number(process.env.POSTGRES_PORT),
+    port: process.env.POSTGRES_PORT,
     user: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DB,
