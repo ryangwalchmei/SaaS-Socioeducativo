@@ -9,7 +9,7 @@ const router = createRouter();
 router.post(postHandler);
 router.delete(deleteHandler);
 router.all((request) => {
-  const allowedMethods = ["POST"];
+  const allowedMethods = ["POST", "DELETE"];
   throw new MethodNotAllowedError({
     cause: new Error("Método não permitido"),
     method: request.method,
