@@ -8,25 +8,17 @@ beforeAll(async () => {
 
 describe("infra/email.js", () => {
   test("send()", async () => {
-    await email.send({
-      from: "Ryan <ryan@gwalchmei.com.br>",
-      to: "dev@gwalchmei.com.br",
-      subject: "Teste de Assunto",
-      text: "Teste de corpo.",
-    });
+    const firstEmailObject = orchestrator.createEmail();
+    const lastEmailObject = orchestrator.createEmail();
 
-    await email.send({
-      from: "Ryan <ryan@gwalchmei.com.br>",
-      to: "dev@gwalchmei.com.br",
-      subject: "Último email enviado",
-      text: "Corpo do último email.",
-    });
+    await email.send(firstEmailObject);
+    await email.send(lastEmailObject);
 
     const lastEmail = await orchestrator.getLastEmail();
 
-    expect(lastEmail.sender).toBe("<ryan@gwalchmei.com.br>");
-    expect(lastEmail.recipients[0]).toBe("<dev@gwalchmei.com.br>");
-    expect(lastEmail.subject).toBe("Último email enviado");
-    expect(lastEmail.text).toBe("Corpo do último email.\r\n");
+    expect(lastEmail.sender).toBe(lastEmailObject.from);
+    expect(lastEmail.recipients[0]).toBe(lastEmailObject.to);
+    expect(lastEmail.subject).toBe(lastEmailObject.subject);
+    expect(lastEmail.text).toBe(`${lastEmailObject.text}\n`);
   });
 });

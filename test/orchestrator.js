@@ -87,6 +87,19 @@ async function createUser(userObject) {
   });
 }
 
+function createEmail(emailObject) {
+  return {
+    from:
+      emailObject?.from ||
+      `<${faker.internet.email({
+        provider: "gwalchmei.com.br",
+      })}>`,
+    to: emailObject?.to || `<${faker.internet.email()}>`,
+    subject: emailObject?.subject || faker.lorem.sentence(),
+    text: emailObject?.text || faker.lorem.text(),
+  };
+}
+
 async function createSession(userId) {
   return await session.create(userId);
 }
@@ -99,6 +112,7 @@ const orchestrator = {
   createSession,
   deleteAllEmails,
   getLastEmail,
+  createEmail,
 };
 
 export default orchestrator;
