@@ -1,5 +1,5 @@
 import controller from "infra/controller";
-import { ErrorProps, MethodNotAllowedError } from "infra/errors/customizeds";
+import { MethodNotAllowedError } from "infra/errors/customizeds";
 import status from "models/status";
 import { createRouter } from "next-connect";
 
@@ -7,10 +7,10 @@ const router = createRouter();
 
 router.get(getHandler);
 router.all((request) => {
-  const allowedMethods: ErrorProps["allowedMethods"] = ["GET"];
+  const allowedMethods = ["GET"];
   throw new MethodNotAllowedError({
     cause: new Error("Método não permitido"),
-    method: request.method as ErrorProps["method"],
+    method: request.method,
     allowedMethods,
   });
 });
